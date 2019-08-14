@@ -23,23 +23,17 @@
  * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-?>
-<?php $_item = $this->getItem() ?>
-<tr class="border">
-    <td><?php echo $this->getColumnHtml($_item, 'name') ?></td>
-    <td><?php echo $this->getColumnHtml($_item, 'qty') ?></td>
 
-    <td class="<?php if ($this->isShipmentRegular()): ?>last<?php endif; ?> a-center">
-        <?php if ($this->canShipPartiallyItem()): ?>
-            <input type="text" class="input-text qty-item" name="shipment[items][<?php echo $_item->getOrderItemId() ?>]" value="<?php echo $_item->getQty()*1 ?>" />
-        <?php else: ?>
-            <?php echo $_item->getQty()*1 ?>
-        <?php endif; ?>
-    </td>
-    <?php if (!$this->canShipPartiallyItem()): ?>
-    <td class="a-center last">
-        <input type="hidden" name="shipment[items][<?php echo $_item->getOrderItemId() ?>]" value="0" />
-        <input type="checkbox" name="shipment[items][<?php echo $_item->getOrderItemId() ?>]" value="<?php echo $_item->getQty()*1 ?>" checked />
-    </td>
-    <?php endif; ?>
-</tr>
+/**
+ * @see Saas_Payment_Block_Form_Cashondelivery
+ */
+?>
+<?php if ($this->getInstructions()): ?>
+    <ul class="form-list checkout-agreements" id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none;">
+        <li>
+            <div class="<?php echo $this->getMethodCode() ?>-instructions-content agreement-content">
+                <?php echo nl2br($this->getInstructions()) ?>
+            </div>
+        </li>
+    </ul>
+<?php endif; ?>
